@@ -1,8 +1,27 @@
 package plano;
 
 public enum Classificacao {
-	/*PAR (2), TRINCA(4), DOIS_PARES(3), QUADRA(7), FLUSH(5), STRAIGHT_FLUSH(8), 
-	STRAIGHT(4), ROYAL_FLUSH(9), FULL_HOUSE(6), HIGH_CARD (1), */
-	DESCONHECIDA, HIGH_CARD, PAR, DOIS_PARES, TRINCA, STRAIGHT, FLUSH, FULL_HOUSE, QUADRA, 
-	STRAIGHT_FLUSH, ROYAL_FLUSH
+	DESCONHECIDA (0), 
+	HIGH_CARD(1), 
+	PAR(3), 
+	DOIS_PARES(4), 
+	TRINCA(5), 
+	STRAIGHT(6), 
+	FLUSH(7), 
+	FULL_HOUSE(8), 
+	QUADRA(9), 
+	STRAIGHT_FLUSH(10), 
+	ROYAL_FLUSH(11);
+	
+	private int pontuacao;
+	
+	private Classificacao(int pontuacao){
+		this.pontuacao = pontuacao;
+		
+	}
+	
+	public int getPontuacao(){
+		return this.pontuacao;
+	}
+	
 }
