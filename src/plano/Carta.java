@@ -5,24 +5,24 @@ public class Carta {
 	private int naipe;
 	private int identificador;
 	
-	public Carta(int naipe, int identificador) { //método adicionado//////////////////////////////////////////////////
+	public Carta(int naipe, int identificador) { 
 		this.naipe = naipe;
 		this.identificador = identificador;
 	}
 	
-	public int getNaipe() { //método adicionado//////////////////////////////////////////////////////////////////////
+	public int getNaipe() { 
 		return this.naipe;
 	}
 	
-	public int getIdentificador() { //método adicionado//////////////////////////////////////////////////////////////
+	public int getIdentificador() { 
 		return this.identificador;
 	}
 
-	public void setNaipe(int naipe) { //método adicionado////////////////////////////////////////////////////////////
+	public void setNaipe(int naipe) { 
 		this.naipe = naipe;
 	}
 	
-	public void setIdentificador(int identificador) { //método adicionado////////////////////////////////////////////
+	public void setIdentificador(int identificador) {
 		this.identificador = identificador;
 	}
 }

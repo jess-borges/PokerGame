@@ -1,12 +1,13 @@
 package gerenciamento;
 
 import plano.Carta;
+import plano.Naipe;
 
 public class Baralho {
 	
 	boolean[] cartas = new boolean[52];
 	
-	public Baralho() {////////////////////////////////////////////////////////////método Adicionado
+	public Baralho() {
 		int i;
 		for(i=0; i<52; i++) {
 			cartas[i] = false;
@@ -44,19 +45,19 @@ public class Baralho {
 			identificador = carta.getIdentificador();
 		
 		switch (naipe) {
-			case Paus: {
+			case Naipe.PAUS: {
 				n = identificador - 1;
 				break;
 			}
-			case Copas: {
+			case Naipe.COPAS: {
 				n = identificador + 12;
 				break;
 			}
-			case Espadas: {
+			case Naipe.ESPADAS: {
 				n = identificador + 25;
 				break;
 			}
-			case Ouro: {
+			case Naipe.OURO: {
 				n = identificador + 38;
 			}
 		}
@@ -68,19 +69,18 @@ public class Baralho {
 		Carta carta;
 		
 		if(id < 13) {
-			carta.setNaipe(Paus);
+			carta.setNaipe(Naipe.PAUS);
 			carta.setIdentificador(id + 1);
-		}
-		else { 
+		} else { 
 			if(id < 26) {
-				carta.setNaipe(Copas);
+				carta.setNaipe(Naipe.COPAS);
 				carta.setIdentificador(id - 12);
 			} else {
 				if(id < 39) {
-					carta.setNaipe(Espadas);
+					carta.setNaipe(Naipe.ESPADAS);
 					carta.setIdentificador(id - 25);
 				} else {
-					carta.setNaipe(Ouro);
+					carta.setNaipe(Naipe.OURO);
 					carta.setIdentificador(id - 38);
 				}
 			}

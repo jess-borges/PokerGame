@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Poker {
-	//Lucas Passou por aqui///////////////////////////////////////////////////////////////////
 	
 	private int numeroJogadores;
 	private int estado;
@@ -16,7 +15,7 @@ public class Poker {
 		//
 	}
 	
-	public void jogar() {//método adicionado/////////////////////////////////////////////////
+	public void jogar() {
 		//
 	}
 	
