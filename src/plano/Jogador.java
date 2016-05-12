@@ -4,12 +4,14 @@ public class Jogador {
 	
 	private String nome;
 	private boolean jogando;
-	private int fichas;
+	private int pilha;
 	private int pote;
 	private Mao mao;
 	
-	public Jogador(String nome) {
+	public Jogador(String nome, int pilha) {
 		this.nome = nome;
+		this.pilha = pilha;
+		this.mao = new Mao();
 	}
 	
 	public String getNome() {
@@ -20,14 +22,37 @@ public class Jogador {
 		return this.jogando;
 	}
 	
-	public int getFichas() {
-		return this.fichas;
+	public int getPilha() {
+		return this.pilha;
 	}
 	
 	public int getPote() {
 		return this.pote;
 	}
 	
+	public void setJogando(boolean jogando) {
+		this.jogando = jogando;
+	}
 	
-
+	public void ganhador(int premio) { ////////////////////////////////////////////////////setPilha
+		this.pilha += premio;
+	}
+	
+	public void setPote(int pote) {
+		this.pote = pote;
+	}
+	
+	public void recebeCarta(Carta carta) { ///////////////////////////////////////////////////////
+		this.mao.addCarta(carta);
+	}
+	
+	public Carta retiraCarta(int idCarta) { //////////////////////////////////////////////////////
+		Carta carta = this.mao.retiraCarta(idCarta);
+		return carta;
+	}
+	
+	public void aposta(int aposta) { ////////////////////////////////////////////////////////////
+		this.pilha -= aposta;
+		this.pote += aposta;
+	}
 }

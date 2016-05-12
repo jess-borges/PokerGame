@@ -23,7 +23,8 @@ public class Poker {
 	
 	public void novaRodada() {
 		this.estado = 0;
-		this.dealer++; //fazer o módulo//////////////////////////////////////////////////////
+		this.dealer++;
+		this.dealer = this.dealer % this.numeroJogadores;
 	}
 	
 	/*private void identificaJogadores() {
@@ -52,16 +53,20 @@ public class Poker {
 		Jogador auxJogador;
 		
 		for(i=0; i<this.numeroJogadores; i++) {
+			auxJogador = this.jogadores.get(i);
 			for(j=0; j<5; j++) {
-				carta = this.baralho.pedeCarta();
-				jogador = this.jogadores.get(i);
-				jogador.mao
+				auxCarta = this.baralho.pedeCarta();
+				auxJogador.recebeCarta(auxCarta);
 			}
 		}
 	}
 	
-	private void iniciaApostas() {
-		//
+	private void blind() { //////////////////////////////////////////////mudei o nome//Anterior: iniciaApostas()
+		Jogador smallBlind = jogadores.get((this.dealer + 1) % this.numeroJogadores);
+		Jogador bigBlind = jogadores.get((this.dealer + 2) % this.numeroJogadores);
+		
+		smallBlind.aposta(5);
+		bigBlind.aposta(10);
 	}
 	
 	private void primeiraAposta() {
