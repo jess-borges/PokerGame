@@ -2,15 +2,15 @@ package plano;
 
 public class Carta {
 	
-	private int naipe;
+	private Naipe naipe;
 	private int identificador;
 	
-	public Carta(int naipe, int identificador) { 
+	public Carta(Naipe naipe, int identificador) { 
 		this.naipe = naipe;
 		this.identificador = identificador;
 	}
 	
-	public int getNaipe() { 
+	public Naipe getNaipe() { 
 		return this.naipe;
 	}
 	
@@ -18,7 +18,7 @@ public class Carta {
 		return this.identificador;
 	}
 
-	public void setNaipe(int naipe) { 
+	public void setNaipe(Naipe naipe) { 
 		this.naipe = naipe;
 	}
 	
