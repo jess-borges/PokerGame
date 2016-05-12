@@ -1,7 +1,8 @@
 package gerenciamento;
 
 import java.util.ArrayList;
-import java.util.Scanner;
+import plano.Jogador;
+import plano.Carta;
 
 public class Poker {
 	
@@ -9,10 +10,11 @@ public class Poker {
 	private int estado;
 	private int maiorAposta;
 	private int dealer;
-	private ArrayList<String> nomesJogadores;
+	private Baralho baralho;
+	private ArrayList<Jogador> jogadores;
 	
 	public Poker(/*int numeroJogadores, ArrayList<String> nomesJogadores*/) {
-		//
+		this.baralho = new Baralho();
 	}
 	
 	public void jogar() {
@@ -45,7 +47,17 @@ public class Poker {
 	}*/ // JESSSSSSSSSSS 
 	
 	private void distribuiCartas() {
-		//
+		int i, j;
+		Carta auxCarta;
+		Jogador auxJogador;
+		
+		for(i=0; i<this.numeroJogadores; i++) {
+			for(j=0; j<5; j++) {
+				carta = this.baralho.pedeCarta();
+				jogador = this.jogadores.get(i);
+				jogador.mao
+			}
+		}
 	}
 	
 	private void iniciaApostas() {

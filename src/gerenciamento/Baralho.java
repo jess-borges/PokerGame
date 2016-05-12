@@ -2,6 +2,7 @@ package gerenciamento;
 
 import plano.Carta;
 import plano.Naipe;
+import java.util.Random;
 
 public class Baralho {
 	
@@ -36,7 +37,14 @@ public class Baralho {
 	}
 	
 	private int escolheCarta() {
-		//
+		Random gerador = new Random();
+		int n = gerador.nextInt(52);
+		
+		if(this.cartas[n]) {
+			//gera novo/////////////////////////////////////////////////
+		}
+		
+		return n;
 	}
 	
 	private int getIndiceCarta(Carta carta) {
