@@ -1,4 +1,4 @@
-package br.ufmg.pm.poker.gerenciamento;
+package gerenciamento;
 
 import java.util.ArrayList;
 import java.util.Scanner;

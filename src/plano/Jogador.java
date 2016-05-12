@@ -1,4 +1,4 @@
-package br.ufmg.pm.poker.plano;
+package plano;
 
 public class Jogador {
 	

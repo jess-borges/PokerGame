@@ -1,6 +1,6 @@
-package br.ufmg.pm.poker.gerenciamento;
+package gerenciamento;
 
-import br.ufmg.pm.poker.plano.Carta;
+import plano.Carta;
 
 public class Baralho {
 	
