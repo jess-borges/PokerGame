@@ -25,7 +25,7 @@ public class Poker {
 		this.dealer++; //fazer o módulo//////////////////////////////////////////////////////
 	}
 	
-	private void identificaJogadores() {
+	/*private void identificaJogadores() {
 		System.out.println("Quantos jogadores participarão? <2 - 6>:");
 		Scanner reader = new Scanner(System.in);
 		int n = reader.nextInt();
@@ -43,7 +43,7 @@ public class Poker {
 		for(i=0; i<n; i++) {
 			//lê e armazena os nomes dos jogadores
 		}
-	}
+	}*/ // JESSSSSSSSSSS 
 	
 	private void distribuiCartas() {
 		//
