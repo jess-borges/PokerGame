@@ -17,7 +17,7 @@ public class Mao {
 		Carta carta = null;
 		
 		if(idCarta >= 0 && idCarta < this.cartas.size()) {
-			carta = this.cartas.get(idCarta);
+			carta = this.cartas.remove(idCarta);
 		}
 		
 		return carta;
