@@ -1,6 +1,7 @@
 package plano;
 
 public enum Naipe {
+	NULO(0),
 	COPAS(1), 
 	ESPADAS(2), 
 	OURO(3),
