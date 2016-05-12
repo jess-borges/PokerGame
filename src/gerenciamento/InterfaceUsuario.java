@@ -32,11 +32,19 @@ public class InterfaceUsuario {
 		//
 	}
 	
+	public static int decifraComando() {
+		//
+	}
+	
+	public static int getRaise() {
+		//
+	}
+ 	
 	public static ArrayList<Carta> getCartasDraw() {
 		//
 	}
 	
-	public static int decifraComando() {
+	public static void printPote(int pote, int apostaMaxima) {
 		//
 	}
 	
