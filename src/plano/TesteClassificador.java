@@ -1,7 +1,7 @@
 package plano;
 
 public class TesteClassificador {
-	/* Apenas para testar */
+	/* Apenas para testar - apagar antes de enviar */
 	public static void main(String [ ] args){
 		ClassificadorJogo classificador;
 		Classificacao classificacao;
