@@ -1,10 +1,10 @@
 package plano;
 
-public enum CartaEspecial {
-	A(1),
+public enum CartaEspecial {	
 	J(11),
 	Q(12),
-	K(13);
+	K(13),
+	A(1);
 	
 	private int valor;
 	

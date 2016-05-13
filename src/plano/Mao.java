@@ -2,11 +2,16 @@ package plano;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 
 public class Mao {
 	
 	private ArrayList<Carta> cartas;
 	public static final int tamanhoMao = 5;
+	
+	public Mao(){
+		cartas = new ArrayList<Carta> ();
+	}
 	
 	public void addCarta(Carta carta) { //SET///////////////////////////////////////////////////método adicionado
 		if(this.cartas.size() < Mao.tamanhoMao) {
@@ -47,19 +52,62 @@ public class Mao {
 	}
 	
 	public boolean estaEmSequencia(){//////////////////////////////////////////////////método adicionado
-		int i; 
-		for (i = 0; i < Mao.tamanhoMao-1; i++){
-			if (getCarta(i).getIdentificador() != (getCarta(i+1).getIdentificador() + 1)){
-				return false;				
+		int i, atual, prox;
+		boolean maiorSequencia;				
+		
+		/* Verifica se há a maior sequencia */
+		if (this.getMenorCarta().getIdentificador() == CartaEspecial.A.getValor()){
+			maiorSequencia = true;
+			for (i = 1; i < Mao.tamanhoMao - 1; i++){
+				atual = this.getCarta(i).getIdentificador();
+				prox = this.getCarta(i+1).getIdentificador();
+				if (atual != (prox - 1)){
+					maiorSequencia = false;								
+				}			
 			}
+			if (this.getCarta(Mao.tamanhoMao-1).getIdentificador() != CartaEspecial.K.getValor()){
+				maiorSequencia = false;
+			}
+			if (maiorSequencia){
+				return true;
+			}
+		}	
+		for (i = 0; i < Mao.tamanhoMao - 1; i++){
+			atual = this.getCarta(i).getIdentificador();
+			prox = this.getCarta(i+1).getIdentificador();			
+			if (atual != (prox - 1)){			
+				return false;								
+			}			
 		}
 		return true;
 	}
 	
-	public Carta getMenorCarta(){//////////////////////////////////////////////////método adicionado		
-		return this.cartas.get(Mao.tamanhoMao - 1);
+	public Carta getMenorCarta(){//////////////////////////////////////////////////método adicionado
+		Carta carta = this.cartas.get(0);
+		if (carta.getIdentificador() == CartaEspecial.A.getValor()){
+			return this.cartas.get(1);
+		}
+		return carta;
 	}
 	public Carta getMaiorCarta(){//////////////////////////////////////////////////método adicionado
-		return this.cartas.get(0);
+		Carta carta = this.cartas.get(0);
+		if (carta.getIdentificador() == 1){ /* Se a menor carta na ordenacao for A, A é a maior carta no poker */
+			return carta;
+		}
+		else{
+			return this.cartas.get(Mao.tamanhoMao - 1);
+		}
+	}
+	
+	@Override
+	public String toString(){//////////////////////////////////////////////////método adicionado
+		String str = new String("Mao: ");
+		Iterator <Carta>it = this.cartas.iterator();
+		
+		while(it.hasNext()){
+			str = str.concat(it.next().toString());
+			str = str.concat(", ");
+		}
+		return str;
 	}
 }

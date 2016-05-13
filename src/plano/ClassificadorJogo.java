@@ -52,12 +52,15 @@ public class ClassificadorJogo {
 			case STRAIGHT_FLUSH:
 				buscaStraightFlush();
 				break;
+			case ROYAL_FLUSH:
+				buscaRoyalFlush();
 			default:
 				break;								
 		}
 	}	
 	
 	private void buscaPar() {
+		System.out.println("par");
 		int i, j;
 		Carta cartaNula, cartaCorrente;
 		
@@ -83,6 +86,7 @@ public class ClassificadorJogo {
 	 * @return retorna carta que está em um par da mao e que é diferente de cartaFora 
 	 */
 	private Carta buscaPar(Carta cartaFora){//////////////////////////////////////////////////método adicionado
+		System.out.println("buscaPar");
 		int i, j;
 		Carta carta;
 		
@@ -101,6 +105,7 @@ public class ClassificadorJogo {
 	}
 	
 	private void buscaTrinca() {
+		System.out.println("trinca");
 		int i, numOcorrencias;
 		
 		/* Verifica se o par encontrado é, na verade, uma trinca */
@@ -110,10 +115,11 @@ public class ClassificadorJogo {
 				numOcorrencias++;
 			}			
 		}
-		
-		if (numOcorrencias == 3){
+		System.out.println("Numero ocorrencias: " + numOcorrencias);
+		if (numOcorrencias >= 3){			
 			this.classificadorAnterior = Classificacao.TRINCA;
 			this.classificadorPosterior = Classificacao.QUADRA;
+			chamaProxClassificador();
 			return;
 		}
 		
@@ -127,6 +133,7 @@ public class ClassificadorJogo {
 	}
 	
 	private Carta buscaTrinca(Carta cartaFora){//////////////////////////////////////////////////método adicionado
+		System.out.println("buscaTrinca");
 		int i, j, numOcorrencias;
 		Carta carta;
 		numOcorrencias = 0;
@@ -151,6 +158,7 @@ public class ClassificadorJogo {
 	}
 	
 	private void buscaFullHouse() {
+		System.out.println("fullHouse");
 		Carta carta, cartaAnterior;
 		
 		carta = null;
@@ -178,10 +186,14 @@ public class ClassificadorJogo {
 				this.classificadorPosterior = Classificacao.DOIS_PARES;
 				chamaProxClassificador();
 			}
+			if (this.classificadorAnterior == Classificacao.QUADRA){
+				this.classificacao = Classificacao.TRINCA;
+			}
 		}
 	}
 	
 	private void buscaQuadra() {
+		System.out.println("quadra");
 		int i, numOcorrencias;
 		
 		/* Verifica se a trinca encontrada é, na verade, uma quadra */
@@ -204,6 +216,7 @@ public class ClassificadorJogo {
 	}
 	
 	private void buscaDoisPares() {
+		System.out.println("doisPares");
 		Carta carta, cartaAnterior;		
 		
 		cartaAnterior = this.cartaCorrente;
@@ -218,11 +231,12 @@ public class ClassificadorJogo {
 	}
 	
 	private void buscaFlush() {
+		System.out.println("flush");
 		int i;
 		boolean flush;
 		Naipe naipe;
 		
-		flush = false;
+		flush = true;
 		naipe = this.mao.getNaipeCarta(0);
 		for (i = 1; i < Mao.tamanhoMao; i++){
 			if (naipe != this.mao.getNaipeCarta(i)){
@@ -242,6 +256,7 @@ public class ClassificadorJogo {
 	}
 	
 	private void buscaStraight() {
+		System.out.println("straight");
 		boolean straight;
 		
 		straight = mao.estaEmSequencia();
@@ -255,6 +270,7 @@ public class ClassificadorJogo {
 	}
 	
 	private void buscaStraightFlush() {
+		System.out.println("straightFlush");
 		boolean straight;
 		
 		straight = mao.estaEmSequencia();
@@ -268,12 +284,17 @@ public class ClassificadorJogo {
 		}
 	}
 	private void buscaRoyalFlush(){//////////////////////////////////////////////////método adicionado
-		Carta carta;
+		System.out.println("royalFlush");
+		Carta maiorCarta, menorCarta;
 		
-		carta = mao.getMaiorCarta();
+		maiorCarta = mao.getMaiorCarta();
+		menorCarta = mao.getMenorCarta();
 		
-		if (carta.getIdentificador() == CartaEspecial.K.getValor()){
+		if (maiorCarta.getIdentificador() == CartaEspecial.A.getValor() && menorCarta.getIdentificador() == 10){
 			this.classificacao = Classificacao.ROYAL_FLUSH;
+		}
+		else{
+			this.classificacao = Classificacao.STRAIGHT_FLUSH;
 		}
 	}
 }
