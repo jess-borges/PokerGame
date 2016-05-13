@@ -3,6 +3,8 @@ package gerenciamento;
 import java.util.ArrayList;
 import plano.Jogador;
 import plano.Carta;
+import plano.Jogador;
+import gerenciamento.Comando;
 
 public class InterfaceUsuario {
 	
@@ -32,11 +34,11 @@ public class InterfaceUsuario {
 		//
 	}
 	
-	public static int decifraComando() {
+	public static Comando decifraComando(Jogador jogador) { ///////////////////////////////////////////////////////////////////////
 		//
 	}
 	
-	public static int getRaise() {
+	public static int getRaise() { 
 		//
 	}
  	

@@ -48,25 +48,21 @@ public class Baralho {
 	}
 	
 	private int getIndiceCarta(Carta carta) {
-		int n;
-		int naipe = carta.getNaipe(),
-			identificador = carta.getIdentificador();
+		int n = -1;
 		
-		switch (naipe) {
-			case Naipe.PAUS: {
-				n = identificador - 1;
-				break;
-			}
-			case Naipe.COPAS: {
-				n = identificador + 12;
-				break;
-			}
-			case Naipe.ESPADAS: {
-				n = identificador + 25;
-				break;
-			}
-			case Naipe.OURO: {
-				n = identificador + 38;
+		if(carta.getNaipe() == Naipe.PAUS) {
+			n = carta.getIdentificador() - 1;
+		} else {
+			if(carta.getNaipe() == Naipe.COPAS) {
+				n = carta.getIdentificador() + 12;
+			} else {
+				if(carta.getNaipe() == Naipe.ESPADAS) {
+					n = carta.getIdentificador() + 25;
+				} else {
+					if(carta.getNaipe() == Naipe.OUROS) {
+						n = carta.getIdentificador() + 38;
+					}
+				}
 			}
 		}
 		
@@ -74,7 +70,7 @@ public class Baralho {
 	}
 	
 	private Carta getObjetoCarta(int id) {
-		Carta carta;
+		Carta carta = new Carta();
 		
 		if(id < 13) {
 			carta.setNaipe(Naipe.PAUS);
@@ -88,7 +84,7 @@ public class Baralho {
 					carta.setNaipe(Naipe.ESPADAS);
 					carta.setIdentificador(id - 25);
 				} else {
-					carta.setNaipe(Naipe.OURO);
+					carta.setNaipe(Naipe.OUROS);
 					carta.setIdentificador(id - 38);
 				}
 			}

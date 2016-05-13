@@ -27,6 +27,7 @@ public class Poker {
 		this.dealer = this.dealer % this.numeroJogadores;
 	}
 	
+	/*
 	private void identificaJogadores() {
 		System.out.println("Quantos jogadores participarão? <2 - 6>:");
 		Scanner reader = new Scanner(System.in);
@@ -46,6 +47,7 @@ public class Poker {
 			//lê e armazena os nomes dos jogadores
 		}
 	}
+	*/
 	
 	private void distribuiCartas() {
 		int i, j;
@@ -67,10 +69,52 @@ public class Poker {
 		
 		smallBlind.aposta(5);
 		bigBlind.aposta(10);
+		
+		this.maiorAposta = 10;
 	}
 	
 	private void primeiraAposta() {
-		//
+		int i, raise;
+		Jogador jogador;
+		Comando comando;
+		
+		for(i=0; i<this.numeroJogadores; i++) {
+			jogador = jogadores.get((this.dealer + 3 + i) % this.numeroJogadores);
+			comando = InterfaceUsuario.decifraComando(jogador);
+			if(comando == Comando.FOLD) {
+				jogador.setJogando(false);
+				continue;
+			}
+			if(comando == Comando.CALL) {
+				jogador.aposta(this.maiorAposta - jogador.getPote());
+				continue;
+			}
+			if(comando == Comando.RAISE) {
+				raise = InterfaceUsuario.getRaise();
+				jogador.aposta(this.maiorAposta + raise);
+				this.maiorAposta += raise;
+			}
+		}
+		
+		for(i=0; i<this.numeroJogadores; i++) {
+			jogador = jogadores.get((this.dealer + 3 + i ) % this.numeroJogadores);
+			comando = InterfaceUsuario.decifraComando(jogador);
+			
+			if(!jogador.getJogando() || jogador.getPote() == this.maiorAposta) { ////colocar ISJOGANDO
+				continue;
+			}
+			if(comando == Comando.FOLD) {
+				jogador.setJogando(false);
+				continue;
+			}
+			if(comando == Comando.CALL) {
+				jogador.aposta(this.maiorAposta - jogador.getPote());
+				continue;
+			}
+			if(comando == Comando.RAISE) {
+				/////////////////////////////////////Não Pode!
+			}
+		}
 	}
 	
 	private void draw() {
