@@ -1,6 +1,6 @@
 package plano;
 
-public class Carta {
+public class Carta implements Comparable<Carta>{
 	
 	private Naipe naipe;
 	private int identificador;
@@ -24,5 +24,15 @@ public class Carta {
 	
 	public void setIdentificador(int identificador) {
 		this.identificador = identificador;
+	}
+	
+	public int compareTo(Carta carta){
+		if (this.getIdentificador() < carta.getIdentificador()) {
+            return -1;
+        }
+        if (this.getIdentificador() > carta.getIdentificador()) {
+            return 1;
+        }
+        return 0;
 	}
 }
