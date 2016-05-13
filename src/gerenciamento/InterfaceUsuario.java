@@ -42,7 +42,7 @@ public class InterfaceUsuario {
 		//
 	}
  	
-	public static ArrayList<Carta> getCartasDraw() {
+	public static ArrayList<Integer> getCartasDraw() { ////////////////////////////////////////////////////////////////////////////////
 		//
 	}
 	
