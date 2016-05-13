@@ -1,7 +1,7 @@
 package plano;
 
 public enum Naipe {
-	NULO(0),
+	NULO(0), /* para definir um carta nula, uma carta que será diferente de todas as cartas */
 	COPAS(1), 
 	ESPADAS(2), 
 	OURO(3),

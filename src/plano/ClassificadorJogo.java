@@ -82,7 +82,7 @@ public class ClassificadorJogo {
 	 * @param cartaFora
 	 * @return retorna carta que está em um par da mao e que é diferente de cartaFora 
 	 */
-	private Carta buscaPar(Carta cartaFora){
+	private Carta buscaPar(Carta cartaFora){//////////////////////////////////////////////////método adicionado
 		int i, j;
 		Carta carta;
 		
@@ -126,7 +126,7 @@ public class ClassificadorJogo {
 		
 	}
 	
-	private Carta buscaTrinca(Carta cartaFora){
+	private Carta buscaTrinca(Carta cartaFora){//////////////////////////////////////////////////método adicionado
 		int i, j, numOcorrencias;
 		Carta carta;
 		numOcorrencias = 0;
@@ -187,7 +187,7 @@ public class ClassificadorJogo {
 		/* Verifica se a trinca encontrada é, na verade, uma quadra */
 		numOcorrencias = 0;
 		for (i = 0; i < Mao.tamanhoMao; i++){
-			if (this.cartaCorrente.getIdentificador() == mao.getIdentificadorCarta(j)){
+			if (this.cartaCorrente.getIdentificador() == mao.getIdentificadorCarta(i)){
 				numOcorrencias++;
 			}			
 		}
@@ -218,14 +218,62 @@ public class ClassificadorJogo {
 	}
 	
 	private void buscaFlush() {
-		//
+		int i;
+		boolean flush;
+		Naipe naipe;
+		
+		flush = false;
+		naipe = this.mao.getNaipeCarta(0);
+		for (i = 1; i < Mao.tamanhoMao; i++){
+			if (naipe != this.mao.getNaipeCarta(i)){
+				flush = false;
+			}
+		}
+		if (flush){
+			this.classificadorAnterior = Classificacao.FLUSH;
+			this.classificadorPosterior = Classificacao.STRAIGHT_FLUSH;
+			chamaProxClassificador();
+		}
+		else{
+			this.classificadorAnterior = Classificacao.FLUSH;
+			this.classificadorPosterior = Classificacao.STRAIGHT;
+			chamaProxClassificador();
+		}
 	}
 	
 	private void buscaStraight() {
-		//
+		boolean straight;
+		
+		straight = mao.estaEmSequencia();
+		if (straight){
+			this.classificacao = Classificacao.STRAIGHT;
+		}
+		else{
+			this.classificacao = Classificacao.HIGH_CARD;
+			this.cartaCorrente = mao.getMaiorCarta();
+		}
 	}
 	
 	private void buscaStraightFlush() {
-		//
+		boolean straight;
+		
+		straight = mao.estaEmSequencia();
+		if (straight){
+			this.classificadorAnterior = Classificacao.STRAIGHT_FLUSH;
+			this.classificadorPosterior = Classificacao.ROYAL_FLUSH;
+			chamaProxClassificador();
+		}
+		else{
+			this.classificacao = Classificacao.FLUSH;
+		}
+	}
+	private void buscaRoyalFlush(){//////////////////////////////////////////////////método adicionado
+		Carta carta;
+		
+		carta = mao.getMaiorCarta();
+		
+		if (carta.getIdentificador() == CartaEspecial.K.getValor()){
+			this.classificacao = Classificacao.ROYAL_FLUSH;
+		}
 	}
 }
