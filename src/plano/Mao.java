@@ -55,10 +55,11 @@ public class Mao {
 		int i, atual, prox;
 		boolean maiorSequencia;				
 		
-		/* Verifica se há a maior sequencia */
-		if (this.getMenorCarta().getIdentificador() == CartaEspecial.A.getValor()){
+		/* Verifica se há a maior sequencia (10 J Q K A) */
+		if (this.getMaiorCarta().getIdentificador() == CartaEspecial.A.getValor()){
 			maiorSequencia = true;
 			for (i = 1; i < Mao.tamanhoMao - 1; i++){
+				/* a carta A fica sempre na primeira posicao da ordenacao, por verificamos sequencia a partir da segunda */
 				atual = this.getCarta(i).getIdentificador();
 				prox = this.getCarta(i+1).getIdentificador();
 				if (atual != (prox - 1)){
@@ -66,12 +67,14 @@ public class Mao {
 				}			
 			}
 			if (this.getCarta(Mao.tamanhoMao-1).getIdentificador() != CartaEspecial.K.getValor()){
+				/* Verifica se A está sendo precedida de K, que é a unica possibilidade de sequencia quando A é tratada como se valesse 14 */
 				maiorSequencia = false;
 			}
 			if (maiorSequencia){
 				return true;
 			}
-		}	
+		}
+		/* Verifica se ha alguma sequencia */
 		for (i = 0; i < Mao.tamanhoMao - 1; i++){
 			atual = this.getCarta(i).getIdentificador();
 			prox = this.getCarta(i+1).getIdentificador();			

@@ -1,5 +1,7 @@
 package plano;
 
+import java.util.ArrayList;
+
 public class ClassificadorJogo {
 	
 	private Classificacao classificadorAnterior;
@@ -24,6 +26,31 @@ public class ClassificadorJogo {
 		this.mao = mao;
 		chamaProxClassificador();
 		return this.classificacao;
+	}
+	
+	public int desempata(ArrayList<Mao> empatados, Classificacao classificacao){
+		int i, j, maior;
+		maior = -1;
+		
+		if (empatados.size() < 2){
+			return -1;
+		}
+		for (i = 0; i < empatados.size() - 1; i++){
+			for (j = 1; )
+		}
+		
+		return maior;
+	}
+	
+	private int desempata(Mao mao1, int id1, Mao mao2, int id2){
+		int maior, i;
+		maior = id1;
+		
+		for (i = Mao.tamanhoMao - 1; i >= 0; i++){
+			if ()
+		}
+		
+		return maior;
 	}
 	
 	private void chamaProxClassificador() {
@@ -60,7 +87,7 @@ public class ClassificadorJogo {
 	}	
 	
 	private void buscaPar() {
-		System.out.println("par");
+		//System.out.println("par");
 		int i, j;
 		Carta cartaNula, cartaCorrente;
 		
@@ -86,7 +113,7 @@ public class ClassificadorJogo {
 	 * @return retorna carta que está em um par da mao e que é diferente de cartaFora 
 	 */
 	private Carta buscaPar(Carta cartaFora){//////////////////////////////////////////////////método adicionado
-		System.out.println("buscaPar");
+		//System.out.println("buscaPar");
 		int i, j;
 		Carta carta;
 		
@@ -105,7 +132,7 @@ public class ClassificadorJogo {
 	}
 	
 	private void buscaTrinca() {
-		System.out.println("trinca");
+		//System.out.println("trinca");
 		int i, numOcorrencias;
 		
 		/* Verifica se o par encontrado é, na verade, uma trinca */
@@ -115,7 +142,7 @@ public class ClassificadorJogo {
 				numOcorrencias++;
 			}			
 		}
-		System.out.println("Numero ocorrencias: " + numOcorrencias);
+		//System.out.println("Numero ocorrencias: " + numOcorrencias);
 		if (numOcorrencias >= 3){			
 			this.classificadorAnterior = Classificacao.TRINCA;
 			this.classificadorPosterior = Classificacao.QUADRA;
@@ -133,7 +160,7 @@ public class ClassificadorJogo {
 	}
 	
 	private Carta buscaTrinca(Carta cartaFora){//////////////////////////////////////////////////método adicionado
-		System.out.println("buscaTrinca");
+		//System.out.println("buscaTrinca");
 		int i, j, numOcorrencias;
 		Carta carta;
 		numOcorrencias = 0;
@@ -158,7 +185,7 @@ public class ClassificadorJogo {
 	}
 	
 	private void buscaFullHouse() {
-		System.out.println("fullHouse");
+		//System.out.println("fullHouse");
 		Carta carta, cartaAnterior;
 		
 		carta = null;
@@ -193,7 +220,7 @@ public class ClassificadorJogo {
 	}
 	
 	private void buscaQuadra() {
-		System.out.println("quadra");
+//		System.out.println("quadra");
 		int i, numOcorrencias;
 		
 		/* Verifica se a trinca encontrada é, na verade, uma quadra */
@@ -216,7 +243,7 @@ public class ClassificadorJogo {
 	}
 	
 	private void buscaDoisPares() {
-		System.out.println("doisPares");
+		/*System.out.println("doisPares");*/
 		Carta carta, cartaAnterior;		
 		
 		cartaAnterior = this.cartaCorrente;
@@ -231,7 +258,7 @@ public class ClassificadorJogo {
 	}
 	
 	private void buscaFlush() {
-		System.out.println("flush");
+		//System.out.println("flush");
 		int i;
 		boolean flush;
 		Naipe naipe;
@@ -256,7 +283,7 @@ public class ClassificadorJogo {
 	}
 	
 	private void buscaStraight() {
-		System.out.println("straight");
+		//System.out.println("straight");
 		boolean straight;
 		
 		straight = mao.estaEmSequencia();
@@ -270,11 +297,12 @@ public class ClassificadorJogo {
 	}
 	
 	private void buscaStraightFlush() {
-		System.out.println("straightFlush");
+		//System.out.println("straightFlush");
 		boolean straight;
 		
 		straight = mao.estaEmSequencia();
 		if (straight){
+			
 			this.classificadorAnterior = Classificacao.STRAIGHT_FLUSH;
 			this.classificadorPosterior = Classificacao.ROYAL_FLUSH;
 			chamaProxClassificador();
@@ -284,7 +312,7 @@ public class ClassificadorJogo {
 		}
 	}
 	private void buscaRoyalFlush(){//////////////////////////////////////////////////método adicionado
-		System.out.println("royalFlush");
+		//System.out.println("royalFlush");
 		Carta maiorCarta, menorCarta;
 		
 		maiorCarta = mao.getMaiorCarta();

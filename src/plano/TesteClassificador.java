@@ -264,5 +264,29 @@ public class TesteClassificador {
 		
 		System.out.println(classificacao.name());
 		System.out.println(mao.toString());
+		
+		/* Royal Flush */
+		System.out.println(classificacao.name());
+		System.out.println(mao.toString());
+		
+		mao = new Mao();
+		
+		carta = new Carta(Naipe.COPAS, 10);
+		mao.addCarta(carta);
+		carta = new Carta(Naipe.COPAS, CartaEspecial.J.getValor());
+		mao.addCarta(carta);
+		carta = new Carta(Naipe.COPAS, CartaEspecial.Q.getValor());
+		mao.addCarta(carta);
+		carta = new Carta(Naipe.COPAS, CartaEspecial.A.getValor());
+		mao.addCarta(carta);
+		carta = new Carta(Naipe.COPAS, CartaEspecial.K.getValor());
+		mao.addCarta(carta);		
+		
+		classificacao = classificador.classifica(mao);
+		
+		System.out.println(classificacao.name());
+		System.out.println(mao.toString());
+		
+		
 	}
 }
