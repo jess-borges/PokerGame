@@ -65,15 +65,35 @@ public class InterfaceUsuario {
 	}
 	
 	public static void printQuadroJogadores(ArrayList<Jogador> jogadores, int idDealer) {
-		//
+		int i, numeroJogadores, espacamento;
+		Jogador jogador;
+		
+		
+		numeroJogadores = jogadores.size();
+		espacamento = 10;
+		for(i = 0; i < numeroJogadores; i++) {
+			jogador = jogadores.get((idDealer + 3 + i) % numeroJogadores);
+			/* escrever quadro */
+		}
 	}
 	
-	public static void printApostas(int pote, ArrayList<Jogador> jogadores, int idDealer) {
-		//
+	/* Mostra as apostas de cada jogador a partir do small blind (que joga logo depois do dealer) */
+	public static void printApostas(int pote, ArrayList<Jogador> jogadores, int idDealer) {//////////modificada////////////////
+		int i, numeroJogadores;
+		Jogador jogador;
+		
+		
+		System.out.println("\n--Apostas--");
+		numeroJogadores = jogadores.size();
+		for(i = 0; i < numeroJogadores; i++) {
+			jogador = jogadores.get((idDealer + i - 1 ) % numeroJogadores);
+			System.out.println("\n" + jogador.getNome() + ": " + (jogador.getPote()));
+		}
+		
 	}
 	
 	public static Comando decifraComando(Jogador jogador) { ///////////////////////////////////////////////////////////////////////
-		//
+		
 	}
 	
 	public static int getRaise() { 
