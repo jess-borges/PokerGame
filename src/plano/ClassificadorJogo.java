@@ -30,27 +30,77 @@ public class ClassificadorJogo {
 	
 	public int desempata(ArrayList<Mao> empatados, Classificacao classificacao){
 		int i, j, maior;
-		maior = -1;
 		
 		if (empatados.size() < 2){
 			return -1;
 		}
-		for (i = 0; i < empatados.size() - 1; i++){
-			for (j = 1; )
+		maior = 0;
+		for (i = 1; i < empatados.size() - 1; i++){
+			maior = desempata(empatados.get(i), i, empatados.get(maior), maior, classificacao);
 		}
 		
 		return maior;
 	}
 	
-	private int desempata(Mao mao1, int id1, Mao mao2, int id2){
-		int maior, i;
-		maior = id1;
+	private int desempata(Mao mao1, int id1, Mao mao2, int id2, Classificacao classificacao){
+		int i;
+		boolean sequencia;
+		Carta carta1, carta2;
+		
+		sequencia = ((classificacao == Classificacao.STRAIGHT) || (classificacao == Classificacao.STRAIGHT_FLUSH) || (classificacao == Classificacao.ROYAL_FLUSH));
 		
 		for (i = Mao.tamanhoMao - 1; i >= 0; i++){
-			if ()
+			carta1 = mao1.getCarta(i);
+			carta2 = mao2.getCarta(i);
+			if (carta1.getIdentificador() > carta2.getIdentificador()){
+				if (carta2.getIdentificador() == CartaEspecial.A.getValor()){
+					if (sequencia){						
+						if (mao1.getIdentificadorCarta(i+1) > mao2.getIdentificadorCarta(i+1)){
+							/* Se for sequencia olha a segunda carta da sequencia para evitar conflitos sobre qual o valor de A */
+							return id1;
+						}
+						else{
+							return id2;
+						}
+					}else{
+						/* Se nao é sequencia, A é a maior carta */
+						return id2;
+					}
+				}
+				else{
+					return id1;
+				}
+			}
+			if (carta1.getIdentificador() < carta2.getIdentificador()){
+				if (carta1.getIdentificador() == CartaEspecial.A.getValor()){
+					if (sequencia){						
+						if (mao1.getIdentificadorCarta(i+1) > mao2.getIdentificadorCarta(i+1)){
+							/* Se for sequencia olha a segunda carta da sequencia para evitar conflitos sobre qual o valor de A */
+							return id1;
+						}
+						else{
+							return id2;
+						}
+					}else{
+						/* Se nao é sequencia, A é a maior carta */
+						return id1;
+					}
+				}
+				else{
+					return id2;
+				}
+			}
 		}
 		
-		return maior;
+		/* Se as maos forem exatamente iguais, desempataremos pelo maior naipe da maior carta */
+		carta1 = mao1.getMaiorCarta();
+		carta2 = mao2.getMaiorCarta();
+		if (carta1.getNaipe().getValor() > carta2.getNaipe().getValor()){
+			return id1;
+		}
+		else{
+			return id2;
+		}	
 	}
 	
 	private void chamaProxClassificador() {
