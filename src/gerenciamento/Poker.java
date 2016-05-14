@@ -2,6 +2,8 @@ package gerenciamento;
 
 import java.util.ArrayList;
 import plano.Jogador;
+import plano.Classificacao;
+import plano.ClassificadorJogo;
 
 public class Poker {
 	
@@ -17,13 +19,23 @@ public class Poker {
 	}
 	
 	public void jogar() {
-		////////////////////////////////////////////////////////////////////////////////////ALterando!!!
 		boolean desejaJogarNovaRodada = true;
-		int i;
+		int i, pilha, idVencedor;
+		String nome;
+		
+		InterfaceUsuario.printBoasVindas();
+		pilha = InterfaceUsuario.getNumeroFichasPilha();
+		this.numeroJogadores = InterfaceUsuario.getNumeroJogadores();
+		
+		for(i=0; i<this.numeroJogadores; i++) {
+			nome = InterfaceUsuario.getNomeJogador(i+1);
+			this.jogadores.add(new Jogador(nome, pilha));
+		}
+		
 		
 		while(desejaJogarNovaRodada) {
 			this.novaRodada();
-			for(i=0; i<7; i++) {
+			for(i=0; i<6; i++) {
 				switch(this.estado) {
 					case 0: {
 						this.blind();
@@ -57,43 +69,43 @@ public class Poker {
 						break;
 					}
 					case 5: {
-						//showdown
+						idVencedor = this.selecionaVencedor(1);
+						InterfaceUsuario.printShowDown(this.jogadores, idVencedor, this.getPoteTotal());
+						break;
 					}
 					case 6: {
-						//verifica vencedor
+						idVencedor = this.selecionaVencedor(2);
+						InterfaceUsuario.printShowDown(this.jogadores, idVencedor, this.getPoteTotal());
+						this.estado ++;
 					}
 				}
+				if(this.estado > 6)
+					break;
 			}
+			//////////////////////////////////////Pergunta se quer jogar de novo
 		}
 	}
 	
 	public void novaRodada() {
 		this.estado = 0;
+		
 		this.dealer++;
 		this.dealer = this.dealer % this.numeroJogadores;
-	}
-	
-	/*
-	private void identificaJogadores() {
-		System.out.println("Quantos jogadores participarão? <2 - 6>:");
-		Scanner reader = new Scanner(System.in);
-		int n = reader.nextInt();
-		reader.close(); //conferir se é realmente assim
-		
-		if (n < 2)
-			n = 2;
-		if (n > 7)
-			n = 7;
-		
-		this.numeroJogadores = n;
 		
 		int i;
-		
-		for(i=0; i<n; i++) {
-			//lê e armazena os nomes dos jogadores
-		}
+		for(i=0; i<this.numeroJogadores; i++)
+			this.jogadores.get(i).setPote(0);
 	}
-	*/
+	
+	public int getPoteTotal() {
+		int i, pote = 0;
+		
+		for(i=0; i<this.numeroJogadores; i++) {
+			pote += this.jogadores.get(i).getPote();
+		}
+		
+		return pote;
+	}
 	
 	private void distribuiCartas() {
 		int i, j;
@@ -123,7 +135,7 @@ public class Poker {
 		Comando comando;
 		
 		for(i=0; i<this.numeroJogadores; i++) {
-			jogador = jogadores.get((this.dealer + 3 + i) % this.numeroJogadores);
+			jogador = this.jogadores.get((this.dealer + 3 + i) % this.numeroJogadores);
 			comando = InterfaceUsuario.decifraComando(jogador);
 			if(comando == Comando.FOLD) {
 				jogador.setJogando(false);
@@ -141,9 +153,9 @@ public class Poker {
 		}
 		
 		for(i=0; i<this.numeroJogadores; i++) {
-			jogador = jogadores.get((this.dealer + 3 + i ) % this.numeroJogadores);
+			jogador = this.jogadores.get((this.dealer + 3 + i ) % this.numeroJogadores);
 			
-			if(!jogador.getJogando() || jogador.getPote() == this.maiorAposta) { ////colocar ISJOGANDO
+			if(!jogador.getJogando() || jogador.getPote() == this.maiorAposta) { 
 				continue;
 			}
 			
@@ -169,7 +181,7 @@ public class Poker {
 		ArrayList<Integer> cartas;
 		
 		for(i=0; i<this.numeroJogadores; i++) {
-			jogador = jogadores.get((this.dealer + 1 + i) % this.numeroJogadores);
+			jogador = this.jogadores.get((this.dealer + 1 + i) % this.numeroJogadores);
 			cartas = InterfaceUsuario.getCartasDraw();
 			for(j=0; j<cartas.size(); j++) {
 				idCarta = cartas.get(j).intValue();
@@ -185,7 +197,7 @@ public class Poker {
 		Comando comando;
 		
 		for(i=0; i<this.numeroJogadores; i++) {
-			jogador = jogadores.get((this.dealer + 1 + i) % this.numeroJogadores);
+			jogador = this.jogadores.get((this.dealer + 1 + i) % this.numeroJogadores);
 			comando = InterfaceUsuario.decifraComando(jogador);
 			if(comando == Comando.FOLD) {
 				jogador.setJogando(false);
@@ -203,7 +215,7 @@ public class Poker {
 		}
 		
 		for(i=0; i<this.numeroJogadores; i++) {
-			jogador = jogadores.get((this.dealer + 1 + i ) % this.numeroJogadores);
+			jogador = this.jogadores.get((this.dealer + 1 + i ) % this.numeroJogadores);
 			
 			if(!jogador.getJogando() || jogador.getPote() == this.maiorAposta) { ////colocar ISJOGANDO
 				continue;
@@ -229,7 +241,7 @@ public class Poker {
 		int i, cnt = 0;
 		Jogador jogador;
 		for(i=0; i<this.numeroJogadores; i++) {
-			jogador = jogadores.get(i);
+			jogador = this.jogadores.get(i);
 			if(jogador.getJogando())
 				cnt++;
 		}
@@ -238,5 +250,37 @@ public class Poker {
 			return true;
 		
 		return false;
+	}
+	
+	private int selecionaVencedor(int tipo) {
+		int i, idVencedor = -1;
+		Classificacao score, maiorScore = Classificacao.DESCONHECIDA;
+		Jogador jogador;
+		ClassificadorJogo classificador = new ClassificadorJogo();
+		
+		if(tipo == 1) {
+			for(i=0; i<this.numeroJogadores; i++) {
+				jogador = this.jogadores.get(i);
+				score = classificador.classifica(jogador.getMao());
+				
+				if(score.getPontuacao() > maiorScore.getPontuacao()) {
+					maiorScore = score;
+					idVencedor = i;
+				}
+			}
+			///////////////////////////////////Passa de novo, pra ver se tem empate
+		}
+		if(tipo == 2) {
+			for(i=0; i<this.numeroJogadores; i++) {
+				jogador = this.jogadores.get(i);
+				
+				if(jogador.getJogando()) {
+					idVencedor = i;
+					break;
+				}
+			}
+		}
+		
+		return idVencedor;
 	}
 }//////////////////////////////////////////////////////////////////////////////////verificar se existem fichas sufucientes na pilha para a aposta

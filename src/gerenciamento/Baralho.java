@@ -40,8 +40,8 @@ public class Baralho {
 		Random gerador = new Random();
 		int n = gerador.nextInt(52);
 		
-		if(this.cartas[n]) {
-			//gera novo/////////////////////////////////////////////////
+		while(this.cartas[n]) {
+			n++;
 		}
 		
 		return n;

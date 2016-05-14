@@ -30,6 +30,10 @@ public class Jogador {
 		return this.pote;
 	}
 	
+	public Mao getMao() {
+		return this.mao;
+	}
+	
 	public void setJogando(boolean jogando) {
 		this.jogando = jogando;
 	}
